@@ -64,13 +64,6 @@ FROM
 	) AS average_distances ON  families.family_name = average_distances.family_name
 ORDER BY average_distance DESC;
 
-
--- Devuelve la ultima posicion antes que los delfines abandonen cualquier area conocida
-SELECT id, family_name, ST_AsText(last_position) as last_position
-FROM Dolphins
-WHERE NOT ST_Within(last_position, (SELECT ST_Union(area) FROM Regions));
-
-
 -- Devuelve la ultima posicion de los delfines que estan mas lejos de sus familias 
 SELECT a.id, a.family_name AS family_name, ST_AsText(a.last_position) AS last_position
 FROM Dolphins a
